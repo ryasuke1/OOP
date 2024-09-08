@@ -6,7 +6,7 @@ public class HeapSort {
         int n = arr.length;
 
         // Построение кучи (перегруппируем массив)
-        for (int i = n / 2 - 1; i >= 0; i--){
+        for (int i = n / 2 - 1; i >= 0; i--) {
             heapify(arr, n, i);
         }
         // Один за другим извлекаем элементы из кучи
@@ -44,10 +44,5 @@ public class HeapSort {
             // Рекурсивно преобразуем в кучу затронутое поддерево
             heapify(arr, n, largest);
         }
-    }
-
-  
-    public static void main(String[] args) {
-        int[] arr = {5, 4, 3, 2, 1};
     }
 }
