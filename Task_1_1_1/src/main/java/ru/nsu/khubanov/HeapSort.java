@@ -6,9 +6,9 @@ public class HeapSort {
         int n = arr.length;
 
         // Построение кучи (перегруппируем массив)
-        for (int i = n / 2 - 1; i >= 0; i--)
+        for (int i = n / 2 - 1; i >= 0; i--){
             heapify(arr, n, i);
-
+        }
         // Один за другим извлекаем элементы из кучи
         for (int i = n - 1; i >= 0; i--) {
             // Перемещаем текущий корень в конец
@@ -46,20 +46,8 @@ public class HeapSort {
         }
     }
 
-    // Функция для печати массива
-    public static void printArray(int[] arr) {
-        for (int j : arr) System.out.print(j + " ");
-        System.out.println();
-    }
-
+  
     public static void main(String[] args) {
         int[] arr = {5, 4, 3, 2, 1};
-        System.out.println("Исходный массив:");
-        printArray(arr);
-
-        heapSort(arr);
-
-        System.out.println("Отсортированный массив:");
-        printArray(arr);
     }
 }
