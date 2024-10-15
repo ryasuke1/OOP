@@ -44,6 +44,7 @@ public class Game {
                 round++;
                 continue; // Переход к следующему раунду
             } else if (dealer.hasBlackjack()) {
+                System.out.println("Карты дилера: " + dealer.showHand());
                 System.out.println("У дилера блэкджек! Вы проиграли раунд.");
                 dealerWins++;
                 round++;
@@ -58,7 +59,12 @@ public class Game {
                 if (choice == 1) {
                     player.addCard(deck.getcard());
                     System.out.println("Ваши карты: " + player.showHand());
-
+                    if (player.hasBlackjack()) {
+                        System.out.println("У вас блэкджек! Вы выиграли раунд!");
+                        playerWins++;
+                        round++;
+                        continue; // Переход к следующему раунду
+                    }
                     if (player.isBusted()) {
                         System.out.println("У вас перебор! Вы проиграли раунд.");
                         dealerWins++;
@@ -76,6 +82,12 @@ public class Game {
                 while (dealer.getScore() < 17) {
                     dealer.addCard(deck.getcard());
                     System.out.println("Дилер берет карту. Карты дилера: " + dealer.showHand());
+                }
+                if (dealer.hasBlackjack()) {
+                    System.out.println("У дилера блэкджек! Вы проиграли раунд.");
+                    dealerWins++;
+                    round++;
+                    continue; // Переход к следующему раунду
                 }
 
                 if (dealer.isBusted()) {

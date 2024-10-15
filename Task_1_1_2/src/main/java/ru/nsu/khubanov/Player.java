@@ -58,13 +58,14 @@ class Player {
 
     // Показать карты игрока в виде строки
     public String showHand() {
-        StringBuilder sb = new StringBuilder();
-        for (Card card : hand) {
-            sb.append(card.StringCard(card)).append(", ");
+        String result = ""; // Создаем пустую строку для накопления результата
+        for (Card card : hand) { // Проходим по каждой карте в руке
+            result += card.StringCard(card) + ", "; // Добавляем строковое представление карты и запятую
         }
-        sb.append("> ").append(score);
-        return sb.toString();
+        result += "> " + score; // В конце добавляем сумму очков
+        return result; // Возвращаем итоговую строку
     }
+
 
     // Проверка на перебор (сумма больше 21)
     public boolean isBusted() {
@@ -73,6 +74,6 @@ class Player {
 
     // Проверка на наличие блэкджека
     public boolean hasBlackjack() {
-        return score == 21 && hand.size() == 2;
+        return score == 21;
     }
 }
