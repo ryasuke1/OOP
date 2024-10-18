@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.khubanov","l":"Card"},{"p":"ru.nsu.khubanov","l":"Game"},{"p":"ru.nsu.khubanov","l":"GetRandomCards"},{"p":"ru.nsu.khubanov","l":"Card.Rank"},{"p":"ru.nsu.khubanov","l":"Card.Suit"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.khubanov","l":"Card"},{"p":"ru.nsu.khubanov","l":"Dealer"},{"p":"ru.nsu.khubanov","l":"Game"},{"p":"ru.nsu.khubanov","l":"GetRandomCards"},{"p":"ru.nsu.khubanov","l":"Card.Rank"},{"p":"ru.nsu.khubanov","l":"Card.Suit"}]
