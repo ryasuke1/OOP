@@ -30,6 +30,6 @@ class GetRandomCardsTest {
 
         // Проверка, что колода пуста
         assertEquals(0, deck.cardsRemaining(), "В колоде не должно оставаться карт");
-        assertThrows(IllegalStateException.class, deck::getcard, "Должно выбрасываться исключение, когда карт больше нет");
+        assertThrows(RuntimeException.class, deck::getcard, "Должно выбрасываться исключение, когда карт больше нет");
     }
 }

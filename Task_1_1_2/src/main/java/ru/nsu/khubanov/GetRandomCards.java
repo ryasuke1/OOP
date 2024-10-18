@@ -24,7 +24,7 @@ public class GetRandomCards {
     // Метод для "вытягивания" карты
     public Card getcard() {
         if (cards.isEmpty()) {
-            throw new IllegalStateException("No cards left in the deck!");
+            throw new RuntimeException("No cards left in the deck!");
         }
         return cards.remove(cards.size() - 1);  // Убираем и возвращаем последнюю карту
     }

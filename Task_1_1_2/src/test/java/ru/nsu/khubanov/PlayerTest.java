@@ -32,14 +32,18 @@ class PlayerTest {
         // Добавляем два Туза (каждый по 11 очков, потом один станет 1)
         Card aceOfSpades = new Card(Card.Suit.SPADES, Card.Rank.ACE);
         Card aceOfHearts = new Card(Card.Suit.HEARTS, Card.Rank.ACE);
+        Card aceOfClubs = new Card(Card.Suit.CLUBS, Card.Rank.ACE);
+        Card aceOfDiamonds = new Card(Card.Suit.DIAMONDS, Card.Rank.ACE);
         player.addCard(aceOfSpades);
         player.addCard(aceOfHearts);
-        assertEquals(12, player.getScore(), "Сумма двух тузов должна быть 12 (11+1)");
+        player.addCard(aceOfClubs);
+        player.addCard(aceOfDiamonds);
+        assertEquals(14, player.getScore(), "Сумма четырех тузов должна быть 14 (11+1+1+1)");
 
         // Добавляем карту Семерка Пики (7)
         Card sevenOfSpades = new Card(Card.Suit.SPADES, Card.Rank.SEVEN);
         player.addCard(sevenOfSpades);
-        assertEquals(19, player.getScore(), "Сумма карт должна быть 19 (1 туза, 7, 11)");
+        assertEquals(21, player.getScore(), "Сумма карт должна быть 21 (4 туза, 7, 11, 1, 1, 1)");
     }
 
     @Test
