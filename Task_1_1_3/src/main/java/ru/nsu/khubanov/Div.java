@@ -23,6 +23,10 @@ public class Div extends Expression {
 
     @Override
     public int eval(String context) {
-        return left.eval(context) / right.eval(context);
+        int rightValue = right.eval(context);
+        if (rightValue == 0) {
+            throw new ArithmeticException("Division by zero");
+        }
+        return left.eval(context) / rightValue;
     }
 }

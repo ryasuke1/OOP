@@ -37,6 +37,19 @@ public class ExpressionTest {
         Expression divExpr = new Div(new Number(20), new Number(4));
         assertEquals(5, divExpr.eval(""));
     }
+    @Test
+    public void testDivByZero() {
+        Expression left = new Number(10); // Предположим, что у вас есть класс Const для констант
+        Expression right = new Number(0);
+        Div div = new Div(left, right);
+
+        try {
+            div.eval("");
+            fail("Expected ArithmeticException was not thrown");
+        } catch (ArithmeticException e) {
+            assertEquals("Division by zero", e.getMessage());
+        }
+    }
 
     @Test
     public void testDerivative() {
