@@ -1,5 +1,6 @@
 package ru.nsu.khubanov;
 
+import java.io.FileReader;
 import java.util.*;
 
 class AdjacencyListGraph implements Graph {
@@ -19,7 +20,7 @@ class AdjacencyListGraph implements Graph {
     }
 
     public void addEdge(String startVertex, String endVertex) {
-        adjList.get(startVertex).add(endVertex);
+        adjList.computeIfAbsent(startVertex, k -> new ArrayList<>()).add(endVertex);
     }
 
     public void removeEdge(String startVertex, String endVertex) {
@@ -31,8 +32,32 @@ class AdjacencyListGraph implements Graph {
         return adjList.getOrDefault(vertex, new ArrayList<>());
     }
 
-    public void readFromFile(String filePath) {
-        // Реализация для чтения графа из файла
+    public void readFromFile(String filePath) throws Exception {
+        try (FileReader fileReader = new FileReader(filePath)) {
+            Scanner scanner = new Scanner(fileReader);
+
+            // Чтение первой строки для добавления всех вершин
+            String line = scanner.nextLine();
+            String[] vertices = line.split(" ");
+            for (String vertex : vertices) {
+                this.addVertex(vertex.trim());
+            }
+
+            // Чтение оставшихся строк для добавления рёбер
+            while (scanner.hasNextLine()) {
+                line = scanner.nextLine();
+                String[] edge = line.split(",");
+                if (edge.length == 2) {
+                    String startVertex = edge[0].trim();
+                    String endVertex = edge[1].trim();
+                    this.addEdge(startVertex, endVertex);
+                } else {
+                    throw new Exception("Некорректный формат строки: " + line);
+                }
+            }
+        } catch (Exception e) {
+            throw new Exception("Ошибка при чтении из файла: " + e.getMessage(), e);
+        }
     }
 
     @Override
@@ -54,7 +79,46 @@ class AdjacencyListGraph implements Graph {
     }
 
     public List<String> topologicalSort() {
-        // Реализация алгоритма топологической сортировки
-        return new ArrayList<>();
+        // Подсчет степеней входа
+        Map<String, Integer> inDegree = new HashMap<>();
+        for (String vertex : adjList.keySet()) {
+            inDegree.put(vertex, 0);
+        }
+        for (String vertex : adjList.keySet()) {
+            for (String neighbor : adjList.get(vertex)) {
+                inDegree.put(neighbor, inDegree.get(neighbor) + 1);
+            }
+        }
+
+        // Поиск вершин с нулевой степенью входа
+        Queue<String> queue = new LinkedList<>();
+        for (Map.Entry<String, Integer> entry : inDegree.entrySet()) {
+            if (entry.getValue() == 0) {
+                queue.add(entry.getKey());
+            }
+        }
+
+        List<String> sortedList = new ArrayList<>();
+
+        // Топологическая сортировка
+        while (!queue.isEmpty()) {
+            String vertex = queue.poll();
+            sortedList.add(vertex);
+
+            // Уменьшение степени входа для соседей
+            for (String neighbor : adjList.getOrDefault(vertex, new ArrayList<>())) {
+                inDegree.put(neighbor, inDegree.get(neighbor) - 1);
+                if (inDegree.get(neighbor) == 0) {
+                    queue.add(neighbor);
+                }
+            }
+        }
+
+        // Проверка на наличие цикла
+        if (sortedList.size() != adjList.size()) {
+            throw new IllegalStateException("Граф имеет хотя бы один цикл, топологическая сортировка невозможна.");
+        }
+
+        return sortedList;
     }
 }

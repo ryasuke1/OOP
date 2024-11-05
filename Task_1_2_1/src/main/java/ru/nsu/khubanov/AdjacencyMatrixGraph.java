@@ -1,7 +1,11 @@
 package ru.nsu.khubanov;
+
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class AdjacencyMatrixGraph implements Graph {
     private List<String> vertices;
@@ -71,8 +75,32 @@ public class AdjacencyMatrixGraph implements Graph {
         return neighbors;
     }
 
-    public void readFromFile(String filePath) {
-        // Реализация для чтения графа из файла
+    public void readFromFile(String filePath) throws Exception {
+        try (FileReader fileReader = new FileReader(filePath)) {
+            Scanner scanner = new Scanner(fileReader);
+
+            // Чтение первой строки для добавления всех вершин
+            String line = scanner.nextLine();
+            String[] vertices = line.split(" ");
+            for (String vertex : vertices) {
+                this.addVertex(vertex.trim());
+            }
+
+            // Чтение оставшихся строк для добавления рёбер
+            while (scanner.hasNextLine()) {
+                line = scanner.nextLine();
+                String[] edge = line.split(",");
+                if (edge.length == 2) {
+                    String startVertex = edge[0].trim();
+                    String endVertex = edge[1].trim();
+                    this.addEdge(startVertex, endVertex);
+                } else {
+                    throw new Exception("Некорректный формат строки: " + line);
+                }
+            }
+        } catch (Exception e) {
+            throw new Exception("Ошибка при чтении из файла: " + e.getMessage(), e);
+        }
     }
 
     @Override
@@ -94,8 +122,48 @@ public class AdjacencyMatrixGraph implements Graph {
     }
 
     public List<String> topologicalSort() {
-        // Реализация алгоритма топологической сортировки
-        return new ArrayList<>();
+        int[] inDegree = new int[vertices.size()];
+
+        // Рассчитываем степени входа для каждой вершины
+        for (int i = 0; i < vertices.size(); i++) {
+            for (int j = 0; j < vertices.size(); j++) {
+                if (adjMatrix[j][i] == 1) {
+                    inDegree[i]++;
+                }
+            }
+        }
+
+        // Собираем вершины с нулевой степенью входа
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < inDegree.length; i++) {
+            if (inDegree[i] == 0) {
+                stack.push(i);
+            }
+        }
+
+        List<String> sortedList = new ArrayList<>();
+
+        // Обрабатываем вершины с нулевой степенью входа
+        while (!stack.isEmpty()) {
+            int vertexIndex = stack.pop();
+            sortedList.add(vertices.get(vertexIndex));
+
+            // Уменьшаем степени входа соседей
+            for (int i = 0; i < vertices.size(); i++) {
+                if (adjMatrix[vertexIndex][i] == 1) {
+                    inDegree[i]--;
+                    if (inDegree[i] == 0) {
+                        stack.push(i);
+                    }
+                }
+            }
+        }
+
+        // Проверяем на наличие цикла
+        if (sortedList.size() != vertices.size()) {
+            throw new IllegalStateException("В графе есть хотя бы один цикл, топологическая сортировка невозможна.");
+        }
+
+        return sortedList;
     }
 }
-
