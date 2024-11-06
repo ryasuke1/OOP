@@ -1,9 +1,10 @@
-package ru.nsu.khubanov;
+package Expression;
+import ru.nsu.khubanov.Expression;
 
-public class Number extends Expression {
-    int num;
+public class MyNumber extends Expression {
+    private int num;
 
-    public Number(int num) {
+    public MyNumber(int num) {
         this.num = num;
     }
 
@@ -14,7 +15,7 @@ public class Number extends Expression {
 
     @Override
     public Expression derivative() {
-        return new Number(0);
+        return new MyNumber(0);
     }
 
     @Override

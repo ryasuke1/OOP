@@ -1,8 +1,9 @@
-package ru.nsu.khubanov;
+package Expression;
+import ru.nsu.khubanov.*;
 
 public class Add extends Expression {
-    Expression left;
-    Expression right;
+    private Expression left;
+    private Expression right;
 
     public Add(Expression left, Expression right) {
         this.left = left;

@@ -1,8 +1,9 @@
-package ru.nsu.khubanov;
+package Expression;
+import ru.nsu.khubanov.*;
 
 public class Mul extends Expression {
-    Expression left;
-    Expression right;
+    private Expression left;
+    private Expression right;
 
     public Mul(Expression left, Expression right) {
         this.left = left;

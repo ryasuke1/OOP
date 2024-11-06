@@ -1,7 +1,9 @@
-package ru.nsu.khubanov;
+package Expression;
+import ru.nsu.khubanov.Expression;
+
 
 public class Variable extends Expression {
-    String varl;
+    private String varl;
 
     public Variable(String varl) {
         this.varl = varl;
@@ -14,7 +16,7 @@ public class Variable extends Expression {
 
     @Override
     public Expression derivative() {
-        return new Number(1);
+        return new MyNumber(1);
     }
 
     @Override
