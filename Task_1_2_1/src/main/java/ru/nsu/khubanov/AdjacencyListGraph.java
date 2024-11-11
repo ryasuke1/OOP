@@ -37,15 +37,20 @@ class AdjacencyListGraph implements Graph {
             Scanner scanner = new Scanner(fileReader);
 
             // Чтение первой строки для добавления всех вершин
-            String line = scanner.nextLine();
-            String[] vertices = line.split(" ");
-            for (String vertex : vertices) {
-                this.addVertex(vertex.trim());
+            if (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] vertices = line.split(" ");
+                for (String vertex : vertices) {
+                    this.addVertex(vertex.trim());
+                }
+            } else {
+                throw new Exception("Файл пуст. Ожидались вершины.");
             }
 
             // Чтение оставшихся строк для добавления рёбер
             while (scanner.hasNextLine()) {
-                line = scanner.nextLine();
+                String line = scanner.nextLine().trim(); // Декларация переменной line внутри цикла
+                if (line.isEmpty()) continue; // Пропускаем пустые строки
                 String[] edge = line.split(",");
                 if (edge.length == 2) {
                     String startVertex = edge[0].trim();

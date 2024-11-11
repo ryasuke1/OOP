@@ -57,7 +57,10 @@ class AdjacencyMatrixGraphTest {
         graph.removeEdge("A", "B");
 
         List<String> neighborsA = graph.getNeighbors("A");
-        assertTrue(neighborsA.isEmpty(), "После удаления ребра A -> B у A не должно быть соседей");
+        assertTrue(neighborsA.isEmpty(), "После удаления ребра A-B у A не должно быть соседей");
+
+        List<String> neighborsB = graph.getNeighbors("B");
+        assertTrue(neighborsB.isEmpty(), "После удаления ребра A-B у B не должно быть входящих рёбер");
     }
     @Test
     void testReadFromFile() {

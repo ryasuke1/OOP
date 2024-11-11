@@ -51,14 +51,18 @@ class AdjacencyListGraphTest {
 
     @Test
     void testRemoveEdge() {
-        graph.addVertex("A");
-        graph.addVertex("B");
-        graph.addEdge("A", "B");
-        graph.removeEdge("A", "B");
+            graph.addVertex("A");
+            graph.addVertex("B");
+            graph.addEdge("A", "B");
+            graph.removeEdge("A", "B");
 
-        List<String> neighborsA = graph.getNeighbors("A");
-        assertTrue(neighborsA.isEmpty(), "После удаления ребра A -> B у A не должно быть соседей");
+            List<String> neighborsA = graph.getNeighbors("A");
+            assertTrue(neighborsA.isEmpty(), "После удаления ребра A-B у A не должно быть соседей");
+
+            List<String> neighborsB = graph.getNeighbors("B");
+            assertTrue(neighborsB.isEmpty(), "После удаления ребра A-B у B не должно быть входящих рёбер");
     }
+
     @Test
     void testReadFromFile() {
         String filePath = "src/test/resources/graph.txt";
@@ -84,6 +88,27 @@ class AdjacencyListGraphTest {
             fail("Ошибка при чтении из файла: " + e.getMessage());
         }
     }
+
+    @Test
+    void testReadFromFileWithEmptyFile() {
+        String filePath = "src/test/resources/empty_graph.txt"; // Создайте пустой файл
+
+        Exception exception = assertThrows(Exception.class, () -> {
+            graph.readFromFile(filePath);
+        });
+        assertTrue(exception.getMessage().contains("Файл пуст"), "Ожидалась ошибка с сообщением о пустом файле");
+    }
+
+    @Test
+    void testReadFromFileWithInvalidFormat() {
+        String filePath = "src/test/resources/invalid_graph.txt"; // Создайте файл с некорректным форматом
+
+        Exception exception = assertThrows(Exception.class, () -> {
+            graph.readFromFile(filePath);
+        });
+        assertTrue(exception.getMessage().contains("Некорректный формат строки"), "Ожидалась ошибка с сообщением о некорректной строке");
+    }
+
 
 
     @Test

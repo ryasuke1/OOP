@@ -109,6 +109,7 @@ public class AdjacencyMatrixGraph implements Graph {
     }
 
 
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
