@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"ru.nsu.khubanov","l":"AdjacencyMatrixGraph"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.khubanov","l":"Graph"},{"p":"ru.nsu.khubanov","l":"IncidenceMatrixGraph"},{"p":"ru.nsu.khubanov","l":"Main"}]
