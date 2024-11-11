@@ -64,7 +64,7 @@ class AdjacencyMatrixGraphTest {
     }
     @Test
     void testReadFromFile() {
-        String filePath = "/home/ochir/Рабочий стол/OOPspace/Task_1_2_1/src/test/resources/graph.txt";
+        String filePath = "graph.txt";
 
         try {
             graph.readFromFile(filePath);
@@ -89,7 +89,7 @@ class AdjacencyMatrixGraphTest {
     }
     @Test
     void testReadFromFileWithEmptyFile() {
-        String filePath = "src/test/resources/empty_graph.txt"; // Создайте пустой файл
+        String filePath = "empty_graph.txt"; // Создайте пустой файл
 
         Exception exception = assertThrows(Exception.class, () -> {
             graph.readFromFile(filePath);
@@ -99,7 +99,7 @@ class AdjacencyMatrixGraphTest {
 
     @Test
     void testReadFromFileWithInvalidFormat() {
-        String filePath = "src/test/resources/invalid_graph.txt"; // Создайте файл с некорректным форматом
+        String filePath = "invalid_graph.txt"; // Создайте файл с некорректным форматом
 
         Exception exception = assertThrows(Exception.class, () -> {
             graph.readFromFile(filePath);
