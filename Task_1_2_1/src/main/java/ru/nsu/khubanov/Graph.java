@@ -9,8 +9,6 @@ public interface Graph {
     void removeEdge(String startVertex, String endVertex);
     List<String> getNeighbors(String vertex);
     void readFromFile(String filePath) throws Exception;
-    boolean equals(Object obj);
-    String toString();
     List<String> topologicalSort();
 }
 
