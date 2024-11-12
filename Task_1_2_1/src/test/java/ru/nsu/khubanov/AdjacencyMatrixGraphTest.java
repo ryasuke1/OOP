@@ -9,10 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AdjacencyMatrixGraphTest {
     private AdjacencyMatrixGraph graph;
-
+    private AdjacencyMatrixGraph graphh;
     @BeforeEach
     void setUp() {
         graph = new AdjacencyMatrixGraph();
+        graphh = new AdjacencyMatrixGraph();
     }
 
     @Test
@@ -125,5 +126,38 @@ class AdjacencyMatrixGraphTest {
         assertTrue(sortedList.indexOf("A") < sortedList.indexOf("B"), "A должна быть перед B");
         assertTrue(sortedList.indexOf("B") < sortedList.indexOf("C"), "B должна быть перед C");
         assertTrue(sortedList.indexOf("C") < sortedList.indexOf("D"), "C должна быть перед D");
+    }
+
+    @Test
+    void testEquals(){
+        graph.addVertex("A");
+        graph.addVertex("B");
+        graph.addVertex("C");
+        graph.addVertex("D");
+        graph.addEdge("A", "B");
+        graph.addEdge("B", "C");
+        graph.addEdge("A", "C");
+        graph.addEdge("C", "D");
+
+        graphh.addVertex("A");
+        graphh.addVertex("B");
+        graphh.addVertex("C");
+        graphh.addVertex("D");
+        graphh.addEdge("A", "B");
+        graphh.addEdge("B", "C");
+        graphh.addEdge("A", "C");
+        graphh.addEdge("C", "D");
+
+        boolean returns = graph.equals(graphh);
+        assertTrue(returns, "Не одного типа:");
+    }
+
+    @Test
+    void testToString() {
+        graph.addVertex("A");
+        graph.addVertex("B");
+        graph.addEdge("A", "B");
+        String expected = "Adjacency Matrix:\n[0, 1]\n[0, 0]\n";
+        assertEquals(expected, graph.toString());
     }
 }

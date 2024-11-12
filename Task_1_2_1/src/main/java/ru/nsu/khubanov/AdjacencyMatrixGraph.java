@@ -1,14 +1,10 @@
 package ru.nsu.khubanov;
 
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class AdjacencyMatrixGraph implements Graph {
-    private List<String> vertices;
+    private final List<String> vertices;
     private int[][] adjMatrix;
 
     public AdjacencyMatrixGraph() {
@@ -109,25 +105,6 @@ public class AdjacencyMatrixGraph implements Graph {
     }
 
 
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof AdjacencyMatrixGraph)) return false;
-        AdjacencyMatrixGraph other = (AdjacencyMatrixGraph) obj;
-        return vertices.equals(other.vertices) && Arrays.deepEquals(adjMatrix, other.adjMatrix);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Vertices: ").append(vertices).append("\nAdjacency Matrix:\n");
-        for (int[] row : adjMatrix) {
-            sb.append(Arrays.toString(row)).append("\n");
-        }
-        return sb.toString();
-    }
-
     public List<String> topologicalSort() {
         int[] inDegree = new int[vertices.size()];
 
@@ -173,4 +150,21 @@ public class AdjacencyMatrixGraph implements Graph {
 
         return sortedList;
     }
+    @Override
+    public boolean equals(Object obj) {
+        AdjacencyMatrixGraph other = (AdjacencyMatrixGraph) obj;
+        return vertices.equals(other.vertices) && Arrays.deepEquals(adjMatrix, other.adjMatrix);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Adjacency Matrix:\n");
+        for (int[] row : adjMatrix) {
+            sb.append(Arrays.toString(row)).append("\n");
+        }
+        return sb.toString();
+    }
+
+
 }

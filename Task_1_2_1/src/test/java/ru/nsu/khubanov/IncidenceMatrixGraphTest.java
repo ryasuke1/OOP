@@ -9,10 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IncidenceMatrixGraphTest {
     private IncidenceMatrixGraph graph;
+    private IncidenceMatrixGraph graphh;
 
     @BeforeEach
     void setUp() {
         graph = new IncidenceMatrixGraph();
+        graphh = new IncidenceMatrixGraph();
     }
 
     @Test
@@ -126,6 +128,38 @@ class IncidenceMatrixGraphTest {
         assertTrue(sortedList.indexOf("A") < sortedList.indexOf("B"), "A должна быть перед B");
         assertTrue(sortedList.indexOf("B") < sortedList.indexOf("C"), "B должна быть перед C");
         assertTrue(sortedList.indexOf("C") < sortedList.indexOf("D"), "C должна быть перед D");
+    }
+
+    @Test
+    void testEquals(){
+        graph.addVertex("A");
+        graph.addVertex("B");
+        graph.addVertex("C");
+        graph.addVertex("D");
+        graph.addEdge("A", "B");
+        graph.addEdge("B", "C");
+        graph.addEdge("A", "C");
+        graph.addEdge("C", "D");
+
+        graphh.addVertex("A");
+        graphh.addVertex("B");
+        graphh.addVertex("C");
+        graphh.addVertex("D");
+        graphh.addEdge("A", "B");
+        graphh.addEdge("B", "C");
+        graphh.addEdge("A", "C");
+        graphh.addEdge("C", "D");
+
+        boolean returns = graph.equals(graphh);
+        assertTrue(returns, "Не одного типа:");
+    }
+    @Test
+    void testToString() {
+        graph.addVertex("A");
+        graph.addVertex("B");
+        graph.addEdge("A", "B");
+        String expected = "Incidence Matrix:\\n[1]\\n[-1]\\n";
+        assertEquals(expected, graph.toString());
     }
 }
 

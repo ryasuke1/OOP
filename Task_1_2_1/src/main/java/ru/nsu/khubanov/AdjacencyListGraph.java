@@ -65,23 +65,6 @@ class AdjacencyListGraph implements Graph {
         }
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof AdjacencyListGraph)) return false;
-        AdjacencyListGraph other = (AdjacencyListGraph) obj;
-        return adjList.equals(other.adjList);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Adjacency List:\n");
-        for (Map.Entry<String, List<String>> entry : adjList.entrySet()) {
-            sb.append(entry.getKey()).append(" -> ").append(entry.getValue()).append("\n");
-        }
-        return sb.toString();
-    }
 
     public List<String> topologicalSort() {
         // Подсчет степеней входа
@@ -126,4 +109,22 @@ class AdjacencyListGraph implements Graph {
 
         return sortedList;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        AdjacencyListGraph other = (AdjacencyListGraph) obj;
+        return adjList.equals(other.adjList); // Сравниваем списки смежности
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Adjacency List Graph:\n");
+        for (Map.Entry<String, List<String>> entry : adjList.entrySet()) {
+            sb.append(entry.getKey()).append(" -> ").append(entry.getValue()).append("\n");
+        }
+        return sb.toString();
+    }
+
+
 }

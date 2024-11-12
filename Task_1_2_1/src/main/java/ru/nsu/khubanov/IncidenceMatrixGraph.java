@@ -87,7 +87,7 @@ public class IncidenceMatrixGraph implements Graph {
         if (startIndex != -1 && endIndex != -1) {
             int edgeIndex = -1;
 
-            // Поиск столбца для рёбра
+            // Поиск столбца для рtбра
             for (int i = 0; i < edgeCount; i++) {
                 if (incidenceMatrix.get(startIndex)[i] == 1 && incidenceMatrix.get(endIndex)[i] == -1) {
                     edgeIndex = i;
@@ -216,12 +216,21 @@ public class IncidenceMatrixGraph implements Graph {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        IncidenceMatrixGraph other = (IncidenceMatrixGraph) obj;
+        return vertices.equals(other.vertices) && incidenceMatrix.equals(other.incidenceMatrix);
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Vertices: ").append(vertices).append("\nIncidence Matrix:\n");
+        sb.append("Incidence Matrix:\n");
         for (int[] row : incidenceMatrix) {
             sb.append(Arrays.toString(row)).append("\n");
         }
         return sb.toString();
     }
+
+
 }
+
