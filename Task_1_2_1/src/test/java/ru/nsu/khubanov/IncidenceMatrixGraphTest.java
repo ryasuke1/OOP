@@ -158,7 +158,7 @@ class IncidenceMatrixGraphTest {
         graph.addVertex("A");
         graph.addVertex("B");
         graph.addEdge("A", "B");
-        String expected = "Incidence Matrix:\\n[1]\\n[-1]\\n";
+        String expected = "Incidence Matrix:\n[1]\n[-1]\n";
         assertEquals(expected, graph.toString());
     }
 }
