@@ -9,12 +9,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IncidenceMatrixGraphTest {
     private IncidenceMatrixGraph graph;
-    private IncidenceMatrixGraph graphh;
+    private IncidenceMatrixGraph graphhh;
 
     @BeforeEach
     void setUp() {
         graph = new IncidenceMatrixGraph();
-        graphh = new IncidenceMatrixGraph();
+        graphhh = new IncidenceMatrixGraph();
+
     }
 
     @Test
@@ -131,7 +132,10 @@ class IncidenceMatrixGraphTest {
     }
 
     @Test
-    void testEquals(){
+    void testEquals() {
+        IncidenceMatrixGraph graph = new IncidenceMatrixGraph();
+        IncidenceMatrixGraph graphhh = new IncidenceMatrixGraph();
+
         graph.addVertex("A");
         graph.addVertex("B");
         graph.addVertex("C");
@@ -141,18 +145,20 @@ class IncidenceMatrixGraphTest {
         graph.addEdge("A", "C");
         graph.addEdge("C", "D");
 
-        graphh.addVertex("A");
-        graphh.addVertex("B");
-        graphh.addVertex("C");
-        graphh.addVertex("D");
-        graphh.addEdge("A", "B");
-        graphh.addEdge("B", "C");
-        graphh.addEdge("A", "C");
-        graphh.addEdge("C", "D");
+        graphhh.addVertex("A");
+        graphhh.addVertex("B");
+        graphhh.addVertex("C");
+        graphhh.addVertex("D");
+        graphhh.addEdge("A", "B");
+        graphhh.addEdge("B", "C");
+        graphhh.addEdge("A", "C");
+        graphhh.addEdge("C", "D");
 
-        boolean returns = graph.equals(graphh);
-        assertTrue(returns, "Не одного типа:");
+        boolean returns = graphhh.equals(graph);
+        assertTrue(returns, "Графы должны быть равны, но equals вернул false.");
     }
+
+
     @Test
     void testToString() {
         graph.addVertex("A");

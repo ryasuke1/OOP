@@ -218,7 +218,13 @@ public class IncidenceMatrixGraph implements Graph {
     @Override
     public boolean equals(Object obj) {
         IncidenceMatrixGraph other = (IncidenceMatrixGraph) obj;
-        return vertices.equals(other.vertices) && incidenceMatrix.equals(other.incidenceMatrix);
+
+        for (int i = 0; i < this.incidenceMatrix.size(); i++) {
+            if (!Arrays.equals(this.incidenceMatrix.get(i), other.incidenceMatrix.get(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
