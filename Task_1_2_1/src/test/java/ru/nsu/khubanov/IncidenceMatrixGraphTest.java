@@ -155,7 +155,7 @@ class IncidenceMatrixGraphTest {
         graphhh.addEdge("C", "D");
 
         boolean returns = graphhh.equals(graph);
-        assertTrue(returns, "Графы должны быть равны, но equals вернул false.");
+        assertTrue(returns, "Не одного типа:");
     }
 
 
