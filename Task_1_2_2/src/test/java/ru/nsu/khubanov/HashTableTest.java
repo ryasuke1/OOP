@@ -106,4 +106,38 @@ class HashTableTest {
         hashTable.remove(null);
         assertNull(hashTable.get(null));
     }
+
+    @Test
+    void testForeachIteration() {
+        // Проверка итерации через foreach
+        hashTable.put("one", 1);
+        hashTable.put("two", 2);
+        hashTable.put("three", 3);
+
+        StringBuilder result = new StringBuilder();
+        for (Entry<String, Number> entry : hashTable) {
+            result.append(entry.key).append("=").append(entry.value).append(";");
+        }
+
+        // Проверяем, что строки содержат все ключи и значения
+        assertTrue(result.toString().contains("one=1;"));
+        assertTrue(result.toString().contains("two=2;"));
+        assertTrue(result.toString().contains("three=3;"));
+    }
+
+    @Test
+    void testConcurrentModificationDuringIteration() {
+        // Проверка выброса ConcurrentModificationException при изменении коллекции
+        hashTable.put("one", 1);
+        hashTable.put("two", 2);
+        hashTable.put("three", 3);
+
+        assertThrows(ConcurrentModificationException.class, () -> {
+            for (Entry<String, Number> entry : hashTable) {
+                if (entry.key.equals("two")) {
+                    hashTable.put("four", 4); // Изменение коллекции
+                }
+            }
+        });
+    }
 }

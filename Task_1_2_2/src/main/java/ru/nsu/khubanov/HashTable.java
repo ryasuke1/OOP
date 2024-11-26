@@ -1,14 +1,14 @@
 package ru.nsu.khubanov;
 import java.util.*;
 
-public class HashTable<K, V> {
-    private static final int INITIAL_CAPACITY = 16;
-    private static final float LOAD_FACTOR = 0.75f;
+public class HashTable<K, V> implements Iterable<Entry<K, V>> {
+    private static final int INITIAL_CAPACITY = 16; // Начальная емкость
+    private static final float LOAD_FACTOR = 0.75f; // Коэффициент загрузки
 
-    private int size;
-    private int capacity;
-    private int modCount;
-    private LinkedList<Entry<K, V>>[] table;
+    private int size; // Текущее количество элементов
+    private int capacity; // Текущая емкость массива
+    private int modCount; // Счетчик изменений для итератора
+    private LinkedList<Entry<K, V>>[] table; // Массив списков для хранения пар ключ-значение
 
     @SuppressWarnings("unchecked")
     public HashTable() {
@@ -137,42 +137,50 @@ public class HashTable<K, V> {
             }
         }
     }
+    @Override
+    public Iterator<Entry<K, V>> iterator() {
+        return new EntryIterator();
+    }
 
-    public Iterator<Map.Entry<K, V>> iterator() {
-        return new Iterator<>() {
-            private final int expectedModCount = modCount;
-            private int currentIndex = 0;
-            private Iterator<Entry<K, V>> bucketIterator = table[currentIndex] == null ? null : table[currentIndex].iterator();
 
-            @Override
-            public boolean hasNext() {
-                if (bucketIterator != null && bucketIterator.hasNext()) {
-                    return true;
-                }
-                while (++currentIndex < table.length) {
-                    if (table[currentIndex] != null) {
-                        bucketIterator = table[currentIndex].iterator();
-                        if (bucketIterator.hasNext()) {
-                            return true;
-                        }
+    private class EntryIterator implements Iterator<Entry<K, V>> {
+        private final int expectedModCount = modCount; // Ожидаемое значение modCount для проверки изменений
+        private int currentIndex = 0; // Текущий индекс массива table
+        private Iterator<Entry<K, V>> bucketIterator = table[currentIndex] == null ? null : table[currentIndex].iterator(); // Итератор текущего бакета
+
+        @Override
+        public boolean hasNext() {
+            // Проверяем текущий бакет
+            if (bucketIterator != null && bucketIterator.hasNext()) {
+                return true;
+            }
+            // Переходим к следующему бакету
+            while (++currentIndex < table.length) {
+                if (table[currentIndex] != null) {
+                    bucketIterator = table[currentIndex].iterator();
+                    if (bucketIterator.hasNext()) {
+                        return true;
                     }
                 }
-                return false;
             }
+            return false;
+        }
 
-            @Override
-            public Map.Entry<K, V> next() {
-                if (modCount != expectedModCount) {
-                    throw new ConcurrentModificationException();
-                }
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
-                Entry<K, V> next = bucketIterator.next();
-                return new AbstractMap.SimpleEntry<>(next.key, next.value);
+        @Override
+        public Entry<K, V> next() {
+            // Проверяем, не изменилась ли таблица
+            if (modCount != expectedModCount) {
+                throw new ConcurrentModificationException();
             }
-        };
+            // Если нет следующего элемента, выбрасываем исключение
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            // Получаем следующий элемент из текущего бакета
+            return bucketIterator.next();
+        }
     }
+
 
     public int size() {
         return size;
