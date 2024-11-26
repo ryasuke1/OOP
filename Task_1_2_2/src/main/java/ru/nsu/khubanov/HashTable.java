@@ -81,13 +81,11 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
         }
     }
 
-    public Set<Map.Entry<K, V>> entrySet() {
-        Set<Map.Entry<K, V>> entrySet = new HashSet<>();
+    public Set<Entry<K, V>> entrySet() {
+        Set<Entry<K, V>> entrySet = new HashSet<>();
         for (LinkedList<Entry<K, V>> bucket : table) {
             if (bucket != null) {
-                for (Entry<K, V> entry : bucket) {
-                    entrySet.add(new AbstractMap.SimpleEntry<>(entry.key, entry.value));
-                }
+                entrySet.addAll(bucket); // Добавляем все элементы бакета
             }
         }
         return entrySet;
@@ -98,22 +96,23 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         HashTable<?, ?> that = (HashTable<?, ?>) o;
+        // Сравниваем множества пар ключ-значение
         return Objects.equals(this.entrySet(), that.entrySet());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(entrySet());
+        return Objects.hash(entrySet()); // Вычисляем хэш-код на основе entrySet
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("{");
-        for (Map.Entry<K, V> entry : entrySet()) {
-            sb.append(entry.getKey()).append("=").append(entry.getValue()).append(", ");
+        for (Entry<K, V> entry : entrySet()) { // Используем entrySet
+            sb.append(entry.key).append("=").append(entry.value).append(", ");
         }
         if (sb.length() > 1) {
-            sb.setLength(sb.length() - 2); // Удалить последнюю запятую и пробел
+            sb.setLength(sb.length() - 2); // Удаляем последнюю запятую и пробел
         }
         sb.append("}");
         return sb.toString();
