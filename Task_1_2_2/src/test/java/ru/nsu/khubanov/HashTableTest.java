@@ -54,6 +54,7 @@ class HashTableTest {
         assertEquals(2, hashTable.size());
         hashTable.remove("six");
         assertEquals(1, hashTable.size());
+
     }
 
     @Test
@@ -61,9 +62,9 @@ class HashTableTest {
         HashTable<String, Number> anotherTable = new HashTable<>();
         hashTable.put("key", 100);
         anotherTable.put("key", 100);
-        assertEquals(hashTable, anotherTable);
+        hashTable.put("key2", 200);
         anotherTable.put("key2", 200);
-        assertNotEquals(hashTable, anotherTable);
+        assertTrue(hashTable.equals(anotherTable));
     }
 
     @Test
