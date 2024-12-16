@@ -50,7 +50,13 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
     }
 
     public void update(K key, V value) {
-        put(key, value);
+        int index = getIndex(key);
+        for (Entry<K, V> entry : table[index]) {
+            if (Objects.equals(entry.key, key)) {
+                entry.value = value;
+                return;
+            }
+        }
     }
 
     public boolean containsKey(K key) {
