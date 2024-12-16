@@ -14,8 +14,8 @@ public class SubstringFinderTest {
     @Test
     public void testSmallFileSingleMatch() throws IOException {
         createTestFile("test1.txt", "абракадабра");
-        List<Integer> result = SubstringFinder.find("test1.txt", "бра");
-        assertEquals(List.of(1, 8), result);
+        List<Integer> result = SubstringFinder.find("test1.txt", "рак");
+        assertEquals(List.of(2), result);
     }
 
     @Test
@@ -65,4 +65,19 @@ public class SubstringFinderTest {
             writer.write(content);
         }
     }
+
+    @Test
+    public void testChineseCharactersSingleMatch() throws IOException {
+        createTestFile("test_chinese_1.txt", "你好，世界！你好！");
+        List<Integer> result = SubstringFinder.find("test_chinese_1.txt", "你好");
+        assertEquals(List.of(0, 6), result);
+    }
+
+    @Test
+    public void testEmojisSingleMatch() throws IOException {
+        createTestFile("test_emoji_1.txt", "😀😃😄😁😆😅😂😊😇");
+        List<Integer> result = SubstringFinder.find("test_emoji_1.txt", "😅");
+        assertEquals(List.of(11), result); // Индекс символа "😅" (начиная с 0)
+    }
+
 }
