@@ -30,4 +30,18 @@ public class Div extends Expression {
         }
         return left.eval(context) / rightValue;
     }
+
+    @Override
+    public Expression simplify() {
+        Expression simplifiedLeft = left.simplify();
+        Expression simplifiedRight = right.simplify();
+        int leftValue = simplifiedLeft.eval(""); // Используем eval для получения значения
+        int rightValue = simplifiedRight.eval(""); // Используем eval для получения значения
+
+        if (simplifiedLeft instanceof MyNumber && simplifiedRight instanceof MyNumber) {
+            return new MyNumber(leftValue/rightValue);
+        }
+
+        return new Add(simplifiedLeft, simplifiedRight);
+    }
 }

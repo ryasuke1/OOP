@@ -26,4 +26,28 @@ public class Mul extends Expression {
     public int eval(String context) {
         return left.eval(context) * right.eval(context);
     }
+
+    @Override
+    public Expression simplify() {
+        Expression simplifiedLeft = left.simplify();
+        Expression simplifiedRight = right.simplify();
+
+        int leftValue = simplifiedLeft.eval(""); // Используем eval для получения значения
+        int rightValue = simplifiedRight.eval(""); // Используем eval для получения значения
+
+        if (simplifiedLeft instanceof MyNumber && leftValue==0 || simplifiedRight instanceof MyNumber && rightValue==0) {
+            return new MyNumber(0);
+        }
+
+        if (simplifiedLeft instanceof MyNumber && leftValue==1) {
+            return right;
+        }
+
+        if (simplifiedRight instanceof MyNumber && rightValue==1) {
+            return left;
+        }
+
+        return new Mul(simplifiedLeft, simplifiedRight);
+    }
+
 }

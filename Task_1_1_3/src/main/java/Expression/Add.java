@@ -26,4 +26,21 @@ public class Add extends Expression {
     public int eval(String context) {
         return left.eval(context) + right.eval(context);
     }
+
+    @Override
+    public Expression simplify() {
+        Expression simplifiedLeft = left.simplify();
+        Expression simplifiedRight = right.simplify();
+
+        if (simplifiedLeft instanceof MyNumber && simplifiedRight instanceof MyNumber) {
+            int leftValue = simplifiedLeft.eval(""); // Используем eval для получения значения
+            int rightValue = simplifiedRight.eval(""); // Используем eval для получения значения
+            return new MyNumber(leftValue + rightValue);
+        }
+
+        return new Add(simplifiedLeft, simplifiedRight);
+    }
+
 }
+
+

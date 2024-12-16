@@ -26,4 +26,23 @@ public class Sub extends Expression {
     public int eval(String context) {
         return left.eval(context) - right.eval(context);
     }
+
+    @Override
+    public Expression simplify() {
+        Expression simplifiedLeft = left.simplify();
+        Expression simplifiedRight = right.simplify();
+
+        int leftValue = simplifiedLeft.eval(""); // Используем eval для получения значения
+        int rightValue = simplifiedRight.eval(""); // Используем eval для получения значения
+
+        if (simplifiedLeft instanceof MyNumber && simplifiedRight instanceof MyNumber) {
+            return new MyNumber(leftValue - rightValue);
+        }
+
+        if(simplifiedLeft.equals(simplifiedRight)){
+            return new MyNumber(0);
+        }
+
+        return new Sub(simplifiedLeft, simplifiedRight);
+    }
 }

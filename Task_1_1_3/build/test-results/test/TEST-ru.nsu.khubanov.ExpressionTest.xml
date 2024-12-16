@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.nsu.khubanov.ExpressionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-16T17:36:41" hostname="ochir-Vivobook-ASUSLaptop-M3500QC-M3500QC" time="0.044">
+  <properties/>
+  <testcase name="testSimplifyMultiplicationByZero()" classname="ru.nsu.khubanov.ExpressionTest" time="0.044"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

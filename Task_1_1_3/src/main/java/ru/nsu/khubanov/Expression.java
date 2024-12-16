@@ -7,4 +7,7 @@ public abstract class Expression {
     public abstract Expression derivative();
 
     public abstract int eval(String context);
+
+    public abstract  Expression simplify();
+
 }

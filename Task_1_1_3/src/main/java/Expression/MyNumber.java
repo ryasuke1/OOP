@@ -22,4 +22,9 @@ public class MyNumber extends Expression {
     public int eval(String context) {
         return num;
     }
+
+    @Override
+    public Expression simplify(){
+        return this;
+    }
 }
