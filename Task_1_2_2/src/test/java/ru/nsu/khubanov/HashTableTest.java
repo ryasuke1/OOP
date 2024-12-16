@@ -57,13 +57,13 @@ class HashTableTest {
     }
 
     @Test
-    void testEquality() {
-        HashTable<String, Number> anotherTable = new HashTable<>();
-        hashTable.put("key", 100);
-        anotherTable.put("key", 100);
-        assertEquals(hashTable, anotherTable);
-        anotherTable.put("key2", 200);
-        assertNotEquals(hashTable, anotherTable);
+    void testEquals() {
+        Entry<String, Integer> entry1 = new Entry<>("key", 123);
+        Entry<String, Integer> entry2 = new Entry<>("key", 123);
+        Entry<String, Integer> entry3 = new Entry<>("anotherKey", 456);
+
+        assertEquals(entry1, entry2);
+        assertNotEquals(entry1, entry3);
     }
 
     @Test
