@@ -1,6 +1,6 @@
 package ru.nsu.khubanov;
 
-class SubjectGrade {
+public class SubjectGrade {
     private String subjectName;    // Название предмета
     private String controlType;    // Вид контроля (экзамен, зачет и т.д.)
     private int grade;             // Оценка
@@ -19,6 +19,17 @@ class SubjectGrade {
         return controlType;
     }
 
+    public boolean isExamOrDiffZachet() {
+        return controlType.equalsIgnoreCase("Экзамен") || controlType.equalsIgnoreCase("Дифференцированный зачет");
+    }
+
+    public boolean isExcellent() {
+        return grade == 5;
+    }
+
+    public boolean isSatisfactory() {
+        return grade == 3;
+    }
 
     @Override
     public String toString() {
