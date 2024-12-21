@@ -62,8 +62,8 @@ class HashTableTest {
         Entry<String, Integer> entry2 = new Entry<>("key", 123);
         Entry<String, Integer> entry3 = new Entry<>("anotherKey", 456);
 
-        assertEquals(entry1, entry2);
-        assertNotEquals(entry1, entry3);
+        assertTrue(entry1.equals(entry2));
+        assertFalse(entry1.equals(entry3));
     }
 
     @Test
