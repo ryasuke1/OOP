@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.nsu.khubanov.ExpressionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-16T17:36:41" hostname="ochir-Vivobook-ASUSLaptop-M3500QC-M3500QC" time="0.044">
+<testsuite name="ru.nsu.khubanov.ExpressionTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2024-12-21T08:55:10" hostname="ochir-Vivobook-ASUSLaptop-M3500QC-M3500QC" time="0.049">
   <properties/>
-  <testcase name="testSimplifyMultiplicationByZero()" classname="ru.nsu.khubanov.ExpressionTest" time="0.044"/>
+  <testcase name="testDerivative()" classname="ru.nsu.khubanov.ExpressionTest" time="0.019"/>
+  <testcase name="testDivByZero()" classname="ru.nsu.khubanov.ExpressionTest" time="0.003"/>
+  <testcase name="testAdd()" classname="ru.nsu.khubanov.ExpressionTest" time="0.001"/>
+  <testcase name="testDiv()" classname="ru.nsu.khubanov.ExpressionTest" time="0.001"/>
+  <testcase name="testMul()" classname="ru.nsu.khubanov.ExpressionTest" time="0.001"/>
+  <testcase name="testSimplifyMultiplicationByZero()" classname="ru.nsu.khubanov.ExpressionTest" time="0.003"/>
+  <testcase name="testVariable()" classname="ru.nsu.khubanov.ExpressionTest" time="0.001"/>
+  <testcase name="testSimplifyAddition()" classname="ru.nsu.khubanov.ExpressionTest" time="0.002"/>
+  <testcase name="testHighDerivative()" classname="ru.nsu.khubanov.ExpressionTest" time="0.001"/>
+  <testcase name="testComplexExpression()" classname="ru.nsu.khubanov.ExpressionTest" time="0.001"/>
+  <testcase name="ThreeVariableEval()" classname="ru.nsu.khubanov.ExpressionTest" time="0.001"/>
+  <testcase name="testNumber()" classname="ru.nsu.khubanov.ExpressionTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
