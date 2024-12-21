@@ -9,8 +9,8 @@ import static ru.nsu.khubanov.SubstringFinder.find;
 public class Main {
     public static void main(String[] args) {
         try {
-            List<Integer> result = find("main.txt", "a[[");
-            System.out.println(result); // Вывод [1, 8]
+            List<Integer> result = find("input.txt", "a[[");
+            System.out.println(result); // Вывод [0, 3 , 7 ,12]
         } catch (IOException e) {
             e.printStackTrace();
         }
