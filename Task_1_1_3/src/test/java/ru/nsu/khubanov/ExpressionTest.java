@@ -89,14 +89,14 @@ public class ExpressionTest {
 
     @Test
     void testSimplifyAddition() {
-        Expression expr = Main.parse("3 + 5");
+        Expression expr = Parser.parse("3 + 5");
         Expression simplified = expr.simplify();
         assertEquals(8, simplified.eval(""));
     }
 
     @Test
     void testSimplifyMultiplicationByZero() {
-        Expression expr = Main.parse("x * 0");
+        Expression expr = Parser.parse("x * 0");
         Expression simplified = expr.simplify();
         assertEquals(0, simplified.eval("10"));
     }
