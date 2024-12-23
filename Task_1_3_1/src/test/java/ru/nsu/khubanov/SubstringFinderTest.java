@@ -41,7 +41,7 @@ public class SubstringFinderTest {
 
     @Test
     public void testLargeFileNoMatches() throws IOException {
-        createTestFile("test5.txt", "абракадабра".repeat(1000));
+        createTestFile("test5.txt", "абракадабра".repeat(15000000));
         List<Integer> result = SubstringFinder.find("test5.txt", "xyz");
         assertTrue(result.isEmpty());
     }
