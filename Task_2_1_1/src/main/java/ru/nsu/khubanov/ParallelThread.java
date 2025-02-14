@@ -28,6 +28,9 @@ public class ParallelThread {
             });
             threads.add(thread);
             thread.start();
+            if(foundNotPrime.get()){
+                break;
+            }
         }
         for(Thread thread : threads){
             thread.join();
