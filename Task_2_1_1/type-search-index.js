@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.khubanov","l":"Main"},{"p":"ru.nsu.khubanov","l":"ParallelStream"},{"p":"ru.nsu.khubanov","l":"ParallelThread"},{"p":"ru.nsu.khubanov","l":"PrimeCheck"},{"p":"ru.nsu.khubanov","l":"Sequentially"}];updateSearchResults();
