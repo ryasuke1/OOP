@@ -1,16 +1,20 @@
 package ru.nsu.khubanov;
-
-import java.util.Random;
-
-import static ru.nsu.khubanov.ParallelStream.HasNotPrimeParallel;
-import static ru.nsu.khubanov.ParallelThread.HasPrimeParallelThreads;
-import static ru.nsu.khubanov.PrimeCheck.IsPrime;
-import static ru.nsu.khubanov.Sequentially.HasNotPrimeSeq;
-
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+
+        Thread sleept =new Thread(() ->{
+            try{
+                Thread.sleep(5000);
+            }
+            catch (InterruptedException e) {
+                System.out.println(" Exception: " + e);
+            }
+        });
+        sleept.start();
+        System.out.println("stopping");
+        sleept.interrupt();
         // Генерация массива простых чисел
         int size = 12;
 
@@ -20,21 +24,9 @@ public class Main {
         // Измерение времени выполнения
         long start, end;
 
+        SearchNotPrime sequential = new Sequentially();
         start = System.nanoTime();
-        HasNotPrimeSeq(primes);
+        sequential.HasNotPrime(primes);
         end = System.nanoTime();
-        System.out.println("Последовательное выполнение: " + (end - start) / 1_000_000.0 + " мс");
-
-        for (int threads = 2; threads <= 8; threads *= 2) {
-            start = System.nanoTime();
-            HasPrimeParallelThreads(primes, threads);
-            end = System.nanoTime();
-            System.out.println("Параллельное выполнение (" + threads + " потоков): " + (end - start) / 1_000_000.0 + " мс");
-        }
-
-        start = System.nanoTime();
-        HasNotPrimeParallel(primes);
-        end = System.nanoTime();
-        System.out.println("parallelStream выполнение: " + (end - start) / 1_000_000.0 + " мс");
-    }
+        System.out.println("Последовательное выполнение: " + (end - start) / 1_000_000.0 + " мс");}
 }

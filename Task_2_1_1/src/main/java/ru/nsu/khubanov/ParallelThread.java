@@ -4,9 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class ParallelThread {
-    public static boolean HasPrimeParallelThreads(int[] nums, int threadcount) throws InterruptedException{
-        AtomicBoolean foundNotPrime = new AtomicBoolean(false);
+public class ParallelThread extends SearchNotPrime {
+
+    private final int threadcount;
+
+    public ParallelThread(int threadcount) {
+        this.threadcount = threadcount;
+    }
+    @Override
+    public boolean HasNotPrime(int[] nums){
+        CustomAnotomicBoolean foundNotPrime = new CustomAnotomicBoolean(false);
         List<Thread> threads = new ArrayList<>();
         int chunkSize = nums.length / threadcount;
 
@@ -32,8 +39,13 @@ public class ParallelThread {
                 break;
             }
         }
+
         for(Thread thread : threads){
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         return foundNotPrime.get();
     }

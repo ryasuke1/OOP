@@ -1,7 +1,9 @@
 package ru.nsu.khubanov;
 
-public class Sequentially {
-    public static boolean HasNotPrimeSeq(int[] nums){
+public class Sequentially extends SearchNotPrime {
+
+    @Override
+    public boolean HasNotPrime(int[] nums) {
         for(int num:nums){
             if(!PrimeCheck.IsPrime(num)){
                 return true;
@@ -9,5 +11,4 @@ public class Sequentially {
         }
         return false;
     }
-
 }
