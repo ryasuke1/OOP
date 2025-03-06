@@ -4,14 +4,8 @@ package ru.nsu.khubanov;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
-        Thread sleept =new Thread(() ->{
-            try{
-                Thread.sleep(5000);
-            }
-            catch (InterruptedException e) {
-                System.out.println(" Exception: " + e);
-            }
-        });
+        Runnable smrhdoing = new smthdo();
+        Thread sleept =new Thread(smrhdoing);
         sleept.start();
         System.out.println("stopping");
         sleept.interrupt();
@@ -29,4 +23,15 @@ public class Main {
         sequential.HasNotPrime(primes);
         end = System.nanoTime();
         System.out.println("Последовательное выполнение: " + (end - start) / 1_000_000.0 + " мс");}
+}
+
+class smthdo implements Runnable {
+    @Override
+    public void run () {
+        try{
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            System.out.println(" Exception: " + e);
+        }
+    }
 }

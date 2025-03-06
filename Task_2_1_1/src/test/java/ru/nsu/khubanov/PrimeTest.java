@@ -87,6 +87,13 @@ public class PrimeTest {
         end = System.nanoTime();
         System.out.println("Параллельное выполнение (8 потока): " + (end - start) / 1_000_000.0 + " мс");
 
+        // Параллельное выполнение с потоками (16 потока)
+        SearchNotPrime parallelThread16 = new ParallelThread(16);
+        start = System.nanoTime();
+        parallelThread8.HasNotPrime(primes);
+        end = System.nanoTime();
+        System.out.println("Параллельное выполнение (16 потока): " + (end - start) / 1_000_000.0 + " мс");
+
         // Параллельное выполнение с paralelStream
         SearchNotPrime parallelstream = new ParallelStream();
         start = System.nanoTime();
