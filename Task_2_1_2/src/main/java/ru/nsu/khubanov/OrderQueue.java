@@ -1,20 +1,40 @@
 package ru.nsu.khubanov;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class OrderQueue {
+public class OrderQueue extends AbstractQueue<Order> {
+    private final Queue<Order> queue = new LinkedList<>();
 
-    public final Queue<Order> orders = new LinkedList<>();
+    public OrderQueue(int capacity) {
+        super(capacity);
+    }
 
-    public synchronized void addOrder(Order order){
-        orders.add(order);
+    @Override
+    public synchronized void add(Order order) throws InterruptedException {
+        while(queue.size() >= capacity) {
+            logger.warn("Очередь заказов заполнена, ожидание...");
+            wait();
+        }
+        queue.add(order);
+        logger.info("Добавлен заказ: " + order.getId());
         notifyAll();
     }
 
-    public synchronized Order takeOrder() throws InterruptedException {
-        while (orders.isEmpty()) {
+    @Override
+    public synchronized Order take() throws InterruptedException {
+        while (queue.isEmpty()) {
+            logger.warn("Очередь заказов пуста, ожидание...");
             wait();
         }
-        return orders.poll();
+        Order order = queue.poll();
+        logger.info("Заказ взят в обработку: " + order.getId());
+        notifyAll();
+        return order;
+    }
+
+    @Override
+    public synchronized boolean isEmpty() {
+        return queue.isEmpty();
     }
 }

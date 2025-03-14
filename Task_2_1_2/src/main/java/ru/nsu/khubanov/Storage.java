@@ -2,28 +2,39 @@ package ru.nsu.khubanov;
 
 import java.util.LinkedList;
 import java.util.Queue;
-public class Storage {
-    private final int capacity;
-    private final Queue<Order> pizzas = new LinkedList<>();
+
+public class Storage extends AbstractQueue<Order> {
+    private final Queue<Order> queue = new LinkedList<>();
 
     public Storage(int capacity) {
-        this.capacity=capacity;
+        super(capacity);
     }
-    public synchronized void storePizza(Order order) throws InterruptedException {
-        while (pizzas.size() >= capacity){
+
+    @Override
+    public synchronized void add(Order order) throws InterruptedException {
+        while (queue.size() >= capacity) {
+            logger.warn("Склад заполнен, ожидание...");
             wait();
         }
-        pizzas.add(order);
-        System.out.println("[" + order.getId() + "]  Пицца на складе");
+        queue.add(order);
+        logger.info("Пицца добавлена на склад: " + order.getId());
         notifyAll();
     }
 
-    public synchronized Order takePizza() throws InterruptedException {
-        while(pizzas.isEmpty()) {
+    @Override
+    public synchronized Order take() throws InterruptedException {
+        while (queue.isEmpty()) {
+            logger.warn("Склад пуст, ожидание...");
             wait();
         }
-        Order order = pizzas.poll();
+        Order order = queue.poll();
+        logger.info("Пицца взята курьером: " + order.getId());
         notifyAll();
         return order;
+    }
+
+    @Override
+    public synchronized boolean isEmpty() {
+        return queue.isEmpty();
     }
 }
