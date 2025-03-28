@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.nsu.khubanov.ParserTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2024-12-23T11:53:14" hostname="ochir-Vivobook-ASUSLaptop-M3500QC-M3500QC" time="0.052">
+  <properties/>
+  <testcase name="testDerivative()" classname="ru.nsu.khubanov.ParserTest" time="0.024"/>
+  <testcase name="testVariablesInExpressionWithOneBrackets()" classname="ru.nsu.khubanov.ParserTest" time="0.002"/>
+  <testcase name="testSimpleVariable()" classname="ru.nsu.khubanov.ParserTest" time="0.002"/>
+  <testcase name="testMultiplication()" classname="ru.nsu.khubanov.ParserTest" time="0.002"/>
+  <testcase name="testAddition()" classname="ru.nsu.khubanov.ParserTest" time="0.002"/>
+  <testcase name="testSimpleNumber()" classname="ru.nsu.khubanov.ParserTest" time="0.001"/>
+  <testcase name="testVariablesInExpressionWithTwoBrackets()" classname="ru.nsu.khubanov.ParserTest" time="0.002"/>
+  <testcase name="testComplexExpression()" classname="ru.nsu.khubanov.ParserTest" time="0.002"/>
+  <testcase name="testVariablesInExpression()" classname="ru.nsu.khubanov.ParserTest" time="0.001"/>
+  <testcase name="testDivision()" classname="ru.nsu.khubanov.ParserTest" time="0.001"/>
+  <testcase name="testMultipleOperations()" classname="ru.nsu.khubanov.ParserTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
