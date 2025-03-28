@@ -1,0 +1,21 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class AbstractQueue<T>
+class Baker
+class Courier
+class Main
+class Manager
+class Order
+class OrderGenerator
+class OrderQueue
+class PizzeriaConfig
+class Storage
+class TimerThread
+
+OrderQueue      -[#000082,plain]-^  AbstractQueue  
+Storage         -[#000082,plain]-^  AbstractQueue  
+@enduml
