@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.khubanov"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.khubanov"},{"l":"ru.nsu.khubanov.config"},{"l":"ru.nsu.khubanov.core"},{"l":"ru.nsu.khubanov.core.queue"},{"l":"ru.nsu.khubanov.employees"},{"l":"ru.nsu.khubanov.management"},{"l":"ru.nsu.khubanov.order"}];updateSearchResults();
