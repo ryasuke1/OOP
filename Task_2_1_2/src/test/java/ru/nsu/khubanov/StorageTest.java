@@ -1,6 +1,9 @@
 package ru.nsu.khubanov;
 
 import org.junit.jupiter.api.Test;
+import ru.nsu.khubanov.core.Order;
+import ru.nsu.khubanov.core.queue.Storage;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StorageTest {

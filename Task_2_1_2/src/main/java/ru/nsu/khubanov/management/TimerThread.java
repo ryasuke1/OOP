@@ -1,4 +1,4 @@
-package ru.nsu.khubanov;
+package ru.nsu.khubanov.management;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

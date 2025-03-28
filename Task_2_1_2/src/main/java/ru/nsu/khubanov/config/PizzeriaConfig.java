@@ -1,15 +1,13 @@
-package ru.nsu.khubanov;
+package ru.nsu.khubanov.config;
 
 import com.google.gson.Gson;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 
 public class PizzeriaConfig {
-    private static final Logger logger = LogManager.getLogger(PizzeriaConfig.class);
 
     private int numBakers;
     private int numCouriers;

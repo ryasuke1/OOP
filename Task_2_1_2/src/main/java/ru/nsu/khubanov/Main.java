@@ -1,19 +1,27 @@
 package ru.nsu.khubanov;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import ru.nsu.khubanov.config.PizzeriaConfig;
+import ru.nsu.khubanov.core.AbstractQueue;
+import ru.nsu.khubanov.core.Order;
+import ru.nsu.khubanov.core.queue.OrderQueue;
+import ru.nsu.khubanov.core.queue.Storage;
+import ru.nsu.khubanov.management.Manager;
+import ru.nsu.khubanov.order.OrderSource;
+import ru.nsu.khubanov.order.RandomOrderGenerator;
 
 public class Main {
-    private static final Logger logger = LogManager.getLogger(Main.class);
+    public static void main(String[] args) throws InterruptedException {
+        PizzeriaConfig config = PizzeriaConfig.loadConfig("src/main/resources/config.json");
 
-    public static void main(String[] args) {
-        try {
-            PizzeriaConfig config = PizzeriaConfig.loadConfig("src/main/resources/config.json");
+        AbstractQueue<Order> orderQueue = new OrderQueue(config.getStorageCapacity());
+        AbstractQueue<Order> storage = new Storage(config.getStorageCapacity());
 
-            Manager manager = new Manager(config);
-            manager.start();
-        } catch (Exception e) {
-            logger.error("Ошибка запуска пиццерии", e);
-        }
+        RandomOrderGenerator generator = new RandomOrderGenerator(orderQueue);
+        OrderSource orderSource = generator;
+
+        Manager manager = new Manager(config, orderQueue, storage, orderSource);
+        generator.setManager(manager);
+
+        manager.start();
     }
 }
