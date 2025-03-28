@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.khubanov","l":"HeapSort"},{"p":"ru.nsu.khubanov","l":"Main"}];updateSearchResults();
