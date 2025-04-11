@@ -1,0 +1,7 @@
+module:ru.nsu.khubanov.task_2_3_1
+ru.nsu.khubanov.task_2_3_1
+ru.nsu.khubanov.task_2_3_1.controller
+ru.nsu.khubanov.task_2_3_1.logic
+ru.nsu.khubanov.task_2_3_1.model
+ru.nsu.khubanov.task_2_3_1.model.food
+ru.nsu.khubanov.task_2_3_1.util
