@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+
+<Pane xmlns:fx="http://javafx.com/fxml"
+      fx:id="gamePane" xmlns="http://javafx.com/javafx"
+
+      fx:controller="ru.nsu.khubanov.task_2_3_1.controller.GameController"
+      prefWidth="400" prefHeight="400">
+
+    <!-- Пустая панель, на которой отрисовывается змейка и еда -->
+
+</Pane>

@@ -18,9 +18,9 @@ class BigTest {
 
     @Test
     void testAllOrdersArePreparedAndDelivered() throws InterruptedException {
-        int totalOrders = 20;
+        int totalOrders = 1500;
 
-        PizzeriaConfig config = new PizzeriaConfig(3, 2, 5, 8000);
+        PizzeriaConfig config = new PizzeriaConfig(100, 100, 15, 8000);
 
 
         AbstractQueue<Order> orderQueue = new OrderQueue(config.getStorageCapacity());

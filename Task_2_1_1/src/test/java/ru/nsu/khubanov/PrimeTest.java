@@ -49,7 +49,7 @@ public class PrimeTest {
     // 🔹 Тестирование производительности (дополнительно)
     @Test
     public void testPerformance() throws InterruptedException {
-        int size = 100000;
+        int size = 10000000;
         int[] primes = new int[size];
         for (int i = 0, num = 2; i < size; num++) {
             if (PrimeCheck.IsPrime(num)) {
