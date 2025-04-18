@@ -2,13 +2,16 @@ package ru.nsu.khubanov.task_2_3_1.model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Snake {
     protected final LinkedList<Cell> body = new LinkedList<>();
+    protected final String name;
     protected Direction direction = Direction.RIGHT;
 
-    public Snake(int startX, int startY) {
+    public Snake(int startX, int startY,String name) {
         body.add(new Cell(startX, startY));
+        this.name = name;
     }
 
     public void setDirection(Direction newDir) {
@@ -63,4 +66,40 @@ public class Snake {
     public boolean checkCollision(Cell c) {
         return body.contains(c);
     }
+
+    private boolean botWin = false;
+
+    public void setBotWin(boolean value) {
+        this.botWin = value;
+    }
+
+    public boolean isBotWin() {
+        return botWin;
+    }
+
+    private final Queue<Direction> directionQueue = new LinkedList<>();
+
+    public void queueDirection(Direction newDir) {
+        if (directionQueue.isEmpty()) {
+            directionQueue.add(newDir);
+        } else {
+            Direction last = ((LinkedList<Direction>) directionQueue).getLast();
+            if (!newDir.isOpposite(last)) {
+                directionQueue.add(newDir);
+            }
+        }
+    }
+
+    public void applyNextDirection() {
+        if (!directionQueue.isEmpty()) {
+            Direction next = directionQueue.poll();
+            if (!next.isOpposite(this.direction)) {
+                this.direction = next;
+            }
+        }
+    }
+    public String getName() {
+        return name;
+    }
+    
 }

@@ -3,6 +3,8 @@ package ru.nsu.khubanov.task_2_3_1.model;
 import org.junit.jupiter.api.Test;
 import ru.nsu.khubanov.task_2_3_1.model.food.Bomb;
 import ru.nsu.khubanov.task_2_3_1.model.food.SpeedBoost;
+import ru.nsu.khubanov.task_2_3_1.model.gamefield.GameConfig;
+import ru.nsu.khubanov.task_2_3_1.model.gamefield.GameField;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,7 +12,8 @@ class FoodEffectsTest {
 
     @Test
     void testSpeedBoostIncreasesSpeed() {
-        GameField field = new GameField(10, 10, 0, 10);
+        GameConfig config = new GameConfig(10, 10, 0, 10);
+        GameField field = new GameField(config);
         int oldDelay = field.getTickDelay();
 
         Snake snake = field.getPlayerSnake();
@@ -24,7 +27,9 @@ class FoodEffectsTest {
 
     @Test
     void testBombReducesSnakeSize() {
-        GameField field = new GameField(10, 10, 0, 10);
+        GameConfig config = new GameConfig(10, 10, 0, 10);
+        GameField field = new GameField(config);
+
         Snake snake = field.getPlayerSnake();
         snake.move(true, 10, 10); // длина = 2
         snake.move(true, 10, 10); // длина = 3

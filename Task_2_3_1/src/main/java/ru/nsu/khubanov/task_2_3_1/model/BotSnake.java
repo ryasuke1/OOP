@@ -8,13 +8,14 @@ import java.util.List;
 public class BotSnake extends Snake {
     private final SnakeStrategy strategy;
 
-    public BotSnake(int startX, int startY, SnakeStrategy strategy) {
-        super(startX, startY);
+    public BotSnake(int x, int y, SnakeStrategy strategy, String name) {
+        super(x, y, name); // вызываем Snake с именем
         this.strategy = strategy;
     }
 
-    public void updateDirection(List<Snake> allSnakes, List<Food> foods, int width, int height) {
-        Direction dir = strategy.decideDirection(this, allSnakes, foods, width, height);
-        setDirection(dir);
+    public void updateDirection(List<Snake> snakes, List<Food> foods, int width, int height) {
+        Direction newDir = strategy.decideDirection(this, snakes, foods, width, height);
+        this.queueDirection(newDir);
     }
 }
+

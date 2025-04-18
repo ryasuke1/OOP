@@ -8,14 +8,14 @@ class SnakeTest {
 
     @Test
     void testInitialLength() {
-        Snake snake = new Snake(5, 5);
+        Snake snake = new Snake(5, 5,"паша");
         assertEquals(1, snake.getBody().size());
         assertEquals(new Cell(5, 5), snake.getHead());
     }
 
     @Test
     void testMoveWithoutGrowth() {
-        Snake snake = new Snake(0, 0);
+        Snake snake = new Snake(0, 0 ,"паша");
         snake.setDirection(Direction.RIGHT);
         snake.move(false, 10, 10);
         assertEquals(new Cell(1, 0), snake.getHead());
@@ -24,7 +24,7 @@ class SnakeTest {
 
     @Test
     void testMoveWithGrowth() {
-        Snake snake = new Snake(0, 0);
+        Snake snake = new Snake(0, 0,"паша");
         snake.setDirection(Direction.RIGHT);
         snake.move(true, 10, 10);
         assertEquals(2, snake.getBody().size());
@@ -33,7 +33,7 @@ class SnakeTest {
 
     @Test
     void testWrapAround() {
-        Snake snake = new Snake(9, 0);
+        Snake snake = new Snake(9, 0,"паша");
         snake.setDirection(Direction.RIGHT);
         snake.move(false, 10, 10);
         assertEquals(new Cell(0, 0), snake.getHead());
@@ -41,7 +41,7 @@ class SnakeTest {
 
     @Test
     void testShrink() {
-        Snake snake = new Snake(0, 0);
+        Snake snake = new Snake(0, 0,"паша");
         snake.setDirection(Direction.RIGHT);
         snake.move(true, 10, 10); // length = 2
         snake.setShrink(1);

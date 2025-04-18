@@ -13,6 +13,13 @@ public enum Direction {
         this.dx = dx;
         this.dy = dy;
     }
+    public boolean isOpposite(Direction other) {
+        return (this == UP && other == DOWN) ||
+                (this == DOWN && other == UP) ||
+                (this == LEFT && other == RIGHT) ||
+                (this == RIGHT && other == LEFT);
+    }
+
 
     public int getDx() { return dx; }
 

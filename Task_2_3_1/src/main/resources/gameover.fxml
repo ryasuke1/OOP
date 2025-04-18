@@ -10,6 +10,10 @@
       prefWidth="400" prefHeight="400">
 
     <Label text="Игра окончена!" style="-fx-font-size: 20px;" />
-    <Label fx:id="scoreLabel" />
+
+    <Label fx:id="messageLabel" text="Причина поражения" style="-fx-font-size: 14px;" /> <!-- 👈 Добавлено -->
+
+    <Label fx:id="scoreLabel" style="-fx-font-size: 16px;" />
+
     <Button text="Сыграть снова" onAction="#onRetryClicked" />
 </VBox>

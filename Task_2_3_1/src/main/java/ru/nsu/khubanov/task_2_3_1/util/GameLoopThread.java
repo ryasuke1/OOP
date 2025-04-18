@@ -13,21 +13,31 @@ public class GameLoopThread extends Thread {
 
     @Override
     public void run() {
+        long lastUpdate = System.nanoTime();
+
         while (running && !controller.getGameField().isGameOver() && !controller.getGameField().isVictory()) {
-            Platform.runLater(() -> {
-                controller.getGameField().update();
-                controller.drawGame();
-                controller.checkGameEnd();
-            });
+            long delay = controller.getGameField().getTickDelay() * 1_000_000L;
+            long now = System.nanoTime();
+
+            if (now - lastUpdate >= delay) {
+                Platform.runLater(() -> {
+                    controller.getGameField().update();
+                    controller.drawGame();
+                    controller.checkGameEnd();
+                });
+
+                lastUpdate += delay;
+            }
 
             try {
-                Thread.sleep(controller.getGameField().getTickDelay());
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 running = false;
                 break;
             }
         }
     }
+
 
     public void stopLoop() {
         running = false;

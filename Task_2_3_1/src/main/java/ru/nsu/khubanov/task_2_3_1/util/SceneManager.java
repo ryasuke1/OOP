@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ru.nsu.khubanov.task_2_3_1.controller.GameOverController;
 import ru.nsu.khubanov.task_2_3_1.controller.VictoryController;
-
 import java.io.IOException;
 
 public class SceneManager {
@@ -26,7 +25,7 @@ public class SceneManager {
         }
     }
 
-    public static void switchScene(String fxmlPath, int score, boolean victory) {
+    public static void switchScene(String fxmlPath, int score, boolean victory, boolean botWin) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath));
             Parent root = loader.load();
@@ -36,6 +35,7 @@ public class SceneManager {
             } else {
                 GameOverController controller = loader.getController();
                 controller.setScore(score);
+                controller.setBotWin(botWin);
             }
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
@@ -43,4 +43,5 @@ public class SceneManager {
             e.printStackTrace();
         }
     }
+
 }

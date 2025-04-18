@@ -23,4 +23,6 @@ module ru.nsu.khubanov.task_2_3_1 {
     opens ru.nsu.khubanov.task_2_3_1.logic to javafx.fxml;
     exports ru.nsu.khubanov.task_2_3_1.util;
     opens ru.nsu.khubanov.task_2_3_1.util to javafx.fxml;
+    exports ru.nsu.khubanov.task_2_3_1.model.gamefield;
+    opens ru.nsu.khubanov.task_2_3_1.model.gamefield to javafx.fxml;
 }

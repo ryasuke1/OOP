@@ -11,13 +11,13 @@ class BotSnakeTest {
 
     @Test
     void testBotSnakeInitialDirection() {
-        BotSnake bot = new BotSnake(1, 1, new RandomStrategy());
+        BotSnake bot = new BotSnake(1, 1, new RandomStrategy(),"паша");
         assertNotNull(bot.getDirection());
     }
 
     @Test
     void testBotSnakeChoosesDirection() {
-        BotSnake bot = new BotSnake(1, 1, new RandomStrategy());
+        BotSnake bot = new BotSnake(1, 1, new RandomStrategy(),"паша");
         Direction before = bot.getDirection();
         bot.updateDirection(List.of(bot), List.of(), 10, 10);
         Direction after = bot.getDirection();
@@ -28,7 +28,7 @@ class BotSnakeTest {
 
     @Test
     void testBotSnakeMoves() {
-        BotSnake bot = new BotSnake(1, 1, new RandomStrategy());
+        BotSnake bot = new BotSnake(1, 1, new RandomStrategy(),"паша");
         bot.move(false, 10, 10);
         assertEquals(1, bot.getBody().size()); // длина не меняется
         assertNotEquals(new Cell(1, 1), bot.getHead()); // позиция изменилась
