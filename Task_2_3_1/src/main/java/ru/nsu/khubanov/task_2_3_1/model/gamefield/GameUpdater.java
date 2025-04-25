@@ -8,71 +8,87 @@ import java.util.*;
 public class GameUpdater {
 
     public static void update(GameField field) {
-        List<Snake> snakes = field.getSnakes();
-        List<Food> foods = field.getFoods();
-        int width = field.getConfig().width;
-        int height = field.getConfig().height;
-        int winLength = field.getConfig().winLength;
+        chooseBotDirections(field);
+        applyQueuedDirections(field);
+        Map<Snake, Cell> nextHeads = predictNextHeads(field);
 
-        for (Snake snake : snakes) {
-            if (snake instanceof BotSnake bot) {
-                bot.updateDirection(snakes, foods, width, height);
-            }
-        }
+        List<Snake> dead = CollisionChecker.check(field, nextHeads);
+        removeDeadSnakes(field, dead);
+        if (abortIfEveryoneDead(field)) return;
 
-        for (Snake snake : snakes) {
-            snake.applyNextDirection();
-        }
+        processFoodAndMove(field, nextHeads);
+        checkWinLose(field);
+    }
 
-        Map<Snake, Cell> nextHeads = new HashMap<>();
-        for (Snake snake : snakes) {
-            nextHeads.put(snake, snake.nextHead(width, height));
-        }
+    private static void chooseBotDirections(GameField field) {
+        int w = field.getConfig().width, h = field.getConfig().height;
+        List<Snake> ss = field.getSnakes(); List<Food> fd = field.getFoods();
+        for (Snake s : ss)
+            if (s instanceof BotSnake bot)
+                bot.updateDirection(ss, fd, w, h);
+    }
 
-        List<Snake> toRemove = CollisionChecker.check(field, nextHeads);
+    private static void applyQueuedDirections(GameField field) {
+        for (Snake s : field.getSnakes()) s.applyNextDirection();
+    }
 
-        snakes.removeAll(toRemove);
-        if (snakes.isEmpty()) {
+    private static Map<Snake, Cell> predictNextHeads(GameField field) {
+        int w = field.getConfig().width, h = field.getConfig().height;
+        Map<Snake, Cell> map = new HashMap<>();
+        for (Snake s : field.getSnakes())
+            map.put(s, s.nextHead(w, h));
+        return map;
+    }
+
+    private static void removeDeadSnakes(GameField f, List<Snake> dead) {
+        f.getSnakes().removeAll(dead);
+    }
+
+    private static boolean abortIfEveryoneDead(GameField f) {
+        if (f.getSnakes().isEmpty()) {
             System.out.println("[GameField] Все змеи мертвы. Игра окончена.");
-            field.setGameOver(true);
-            return;
+            f.setGameOver(true);
+            return true;
         }
+        return false;
+    }
 
-        for (Snake snake : snakes) {
-            Cell nextHead = nextHeads.get(snake);
+    private static void processFoodAndMove(GameField f, Map<Snake,Cell> heads) {
+        int w = f.getConfig().width, h = f.getConfig().height;
+        List<Food> foods = f.getFoods();
+        for (Snake s : f.getSnakes()) {
+            Cell head = heads.get(s);
             boolean grow = false;
 
-            Iterator<Food> it = foods.iterator();
-            while (it.hasNext()) {
+            for (Iterator<Food> it = foods.iterator(); it.hasNext();) {
                 Food food = it.next();
-                if (food.getPosition().equals(nextHead)) {
+                if (food.getPosition().equals(head)) {
                     grow = true;
-                    food.applyEffect(snake, field);
+                    food.applyEffect(s, f);
                     it.remove();
-                    field.getFoodSpawner().generateFood();
+                    f.getFoodSpawner().generateFood();
                     break;
                 }
             }
-
-            snake.move(grow, width, height);
+            s.move(grow, w, h);
         }
+    }
 
-        Snake player = field.getPlayerSnake();
-        if (!snakes.contains(player)) {
-            field.setGameOver(true);
+    private static void checkWinLose(GameField f) {
+        Snake player = f.getPlayerSnake();
+        int winLen = f.getConfig().winLength;
+
+        if (!f.getSnakes().contains(player)) {            // игрок погиб
+            f.setGameOver(true);
             return;
         }
-
-        for (Snake snake : snakes) {
-            if (snake != player && snake.getBody().size() >= winLength) {
-                field.setGameOver(true);
+        for (Snake s : f.getSnakes())                     // победил бот?
+            if (s != player && s.getBody().size() >= winLen) {
+                f.setGameOver(true);
                 player.setBotWin(true);
                 return;
             }
-        }
-
-        if (player.getBody().size() >= winLength) {
-            field.setVictory(true);
-        }
+        if (player.getBody().size() >= winLen)            // победа игрока
+            f.setVictory(true);
     }
 }

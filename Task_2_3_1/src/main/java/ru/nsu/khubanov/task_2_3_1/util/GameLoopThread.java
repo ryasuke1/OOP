@@ -13,33 +13,34 @@ public class GameLoopThread extends Thread {
 
     @Override
     public void run() {
-        long lastUpdate = System.nanoTime();
+        long lastUpdate = System.nanoTime();               // момент последнего тика
 
-        while (running && !controller.getGameField().isGameOver() && !controller.getGameField().isVictory()) {
-            long delay = controller.getGameField().getTickDelay() * 1_000_000L;
-            long now = System.nanoTime();
+        while (running &&
+                !controller.getGameField().isGameOver() &&
+                !controller.getGameField().isVictory()) {
 
-            if (now - lastUpdate >= delay) {
+            long delayNs = controller.getGameField().getTickDelay() * 1_000_000L;
+            long now     = System.nanoTime();
+
+            /* --------------------------------------------------------- *
+             *  catch-up-loop: выполняем столько update, сколько нужно  *
+             *  чтобы «догнать» текущее время                            *
+             * --------------------------------------------------------- */
+            while (now - lastUpdate >= delayNs) {
+
                 Platform.runLater(() -> {
-                    controller.getGameField().update();
-                    controller.drawGame();
-                    controller.checkGameEnd();
+                    controller.getGameField().update();     // логика
+                    controller.drawGame();                  // отрисовка
+                    controller.checkGameEnd();              // финал
                 });
 
-                lastUpdate += delay;
+                lastUpdate += delayNs;                      // следующий запланированный тик
+                now = System.nanoTime();                    // пересчитываем «сейчас»
             }
 
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                running = false;
-                break;
-            }
+
         }
     }
 
-
-    public void stopLoop() {
-        running = false;
-    }
+    public void stopLoop() { running = false; }
 }

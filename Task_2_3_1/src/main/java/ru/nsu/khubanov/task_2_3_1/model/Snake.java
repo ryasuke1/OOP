@@ -79,25 +79,22 @@ public class Snake {
 
     private final Queue<Direction> directionQueue = new LinkedList<>();
 
-    public void queueDirection(Direction newDir) {
-        if (directionQueue.isEmpty()) {
-            directionQueue.add(newDir);
-        } else {
-            Direction last = ((LinkedList<Direction>) directionQueue).getLast();
-            if (!newDir.isOpposite(last)) {
-                directionQueue.add(newDir);
-            }
+    // вместо полной очереди держим ровно одно pending-направление
+    private Direction pending = null;
+
+    public void queueDirection(Direction dir) {
+        if (pending == null && !dir.isOpposite(direction)) {
+            pending = dir;          // одно ожидание на тик
         }
     }
 
     public void applyNextDirection() {
-        if (!directionQueue.isEmpty()) {
-            Direction next = directionQueue.poll();
-            if (!next.isOpposite(this.direction)) {
-                this.direction = next;
-            }
+        if (pending != null) {
+            direction = pending;
+            pending = null;
         }
     }
+
     public String getName() {
         return name;
     }

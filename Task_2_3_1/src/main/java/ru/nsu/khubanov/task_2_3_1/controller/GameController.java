@@ -15,10 +15,13 @@ import ru.nsu.khubanov.task_2_3_1.model.Cell;
 import ru.nsu.khubanov.task_2_3_1.model.Direction;
 import ru.nsu.khubanov.task_2_3_1.model.gamefield.GameField;
 import ru.nsu.khubanov.task_2_3_1.model.Snake;
+import ru.nsu.khubanov.task_2_3_1.view.GameRenderer;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
+
 
 public class GameController {
     @FXML
@@ -26,6 +29,8 @@ public class GameController {
 
     private GameField gameField;
     private GameLoopThread gameThread;
+    private GameRenderer renderer;
+
     private Set<Cell> previousSnakeCells = new HashSet<>();
     private Set<Cell> previousFoodCells = new HashSet<>();
     private boolean gameRunning = false;
@@ -37,6 +42,7 @@ public class GameController {
     private final int WIN_LENGTH = 15;
 
     public void initialize() {
+        renderer = new GameRenderer(gamePane, CELL_SIZE);
 
         GameConfig config = new GameConfig(FIELD_WIDTH, FIELD_HEIGHT, FOOD_COUNT, WIN_LENGTH);
         gameField = new GameField(config);
@@ -65,6 +71,7 @@ public class GameController {
         drawGame();
 
         gameThread = new GameLoopThread(this);
+        gameThread.setDaemon(true);   // ← поток-демон!
         gameThread.start();
     }
 
@@ -87,82 +94,7 @@ public class GameController {
 
 
     public void drawGame() {
-        Set<Cell> currentSnakeCells = new HashSet<>();
-        Set<Cell> currentFoodCells = new HashSet<>();
-
-        // 1. Сохраняем клетки змей
-        for (Snake snake : gameField.getSnakes()) {
-            currentSnakeCells.addAll(snake.getBody());
-        }
-
-        // 2. Сохраняем клетки еды
-        for (Food food : gameField.getFoods()) {
-            currentFoodCells.add(food.getPosition());
-        }
-
-        // 3. Удаляем устаревшие клетки
-        Set<Cell> toRemove = new HashSet<>(previousSnakeCells);
-        toRemove.addAll(previousFoodCells);
-        toRemove.removeAll(currentSnakeCells);
-        toRemove.removeAll(currentFoodCells);
-
-        gamePane.getChildren().removeIf(node -> {
-            if (node instanceof Rectangle r) {
-                int x = (int) r.getX() / CELL_SIZE;
-                int y = (int) r.getY() / CELL_SIZE;
-                return toRemove.contains(new Cell(x, y));
-            }
-            return false;
-        });
-
-        // 4. Перерисовываем новые/изменённые клетки
-        Set<Cell> toAdd = new HashSet<>();
-        toAdd.addAll(currentSnakeCells);
-        toAdd.addAll(currentFoodCells);
-        toAdd.removeAll(previousSnakeCells);
-        toAdd.removeAll(previousFoodCells);
-
-        for (Cell cell : toAdd) {
-            Rectangle r = new Rectangle(cell.getX() * CELL_SIZE, cell.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-
-            Optional<Snake> snake = gameField.getSnakes().stream()
-                    .filter(s -> s.getBody().contains(cell)).findFirst();
-
-            if (snake.isPresent()) {
-                r.setFill(snake.get() == gameField.getPlayerSnake() ? Color.GREEN : Color.BLUE);
-            } else {
-                Food food = gameField.getFoods().stream()
-                        .filter(f -> f.getPosition().equals(cell))
-                        .findFirst().orElse(null);
-                if (food instanceof Apple) r.setFill(Color.RED);
-                else if (food instanceof Bomb) r.setFill(Color.BLACK);
-                else if (food instanceof SpeedBoost) r.setFill(Color.YELLOW);
-            }
-
-            gamePane.getChildren().add(r);
-        }
-        //  Перерисовываем все головы поверх еды
-        for (Snake snake : gameField.getSnakes()) {
-            Cell head = snake.getHead();
-
-            // Удаляем старое, если есть
-            gamePane.getChildren().removeIf(node -> {
-                if (node instanceof Rectangle r) {
-                    int x = (int) r.getX() / CELL_SIZE;
-                    int y = (int) r.getY() / CELL_SIZE;
-                    return x == head.getX() && y == head.getY();
-                }
-                return false;
-            });
-
-            Rectangle r = new Rectangle(head.getX() * CELL_SIZE, head.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-            r.setFill(snake == gameField.getPlayerSnake() ? Color.GREEN : Color.BLUE);
-            gamePane.getChildren().add(r);
-        }
-
-        // 6. Обновляем сохранённые состояния
-        previousSnakeCells = currentSnakeCells;
-        previousFoodCells = currentFoodCells;
+        renderer.render(gameField);
     }
 
 }
