@@ -2,5 +2,14 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/repos/badyrtenov" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/repos/barsheva" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/repos/bun" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/repos/charitonov" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/repos/faranosov" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/repos/gavriliev" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/repos/khubanov" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/repos/kupalov" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/repos/tomilin" vcs="Git" />
   </component>
 </project>
