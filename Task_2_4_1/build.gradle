@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'application'
+}
+
+group 'ru.nsu.khubanov'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+
+dependencies {
+    implementation 'org.codehaus.groovy:groovy-all:3.0.14'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly   'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    implementation 'org.junit.platform:junit-platform-launcher:1.10.0'
+    implementation 'org.junit.platform:junit-platform-engine:1.10.0'
+    implementation 'com.google.googlejavaformat:google-java-format:1.15.0'
+    implementation 'org.apiguardian:apiguardian-api:1.1.2'
+    implementation 'org.codehaus.groovy:groovy-all:3.0.14'
+    testImplementation 'org.junit-pioneer:junit-pioneer:2.2.0'  // TempDirectory
+    testImplementation 'org.mockito:mockito-core:5.10.0'
+}
+
+application {
+    mainClass = 'ru.nsu.khubanov.App'
+    applicationDefaultJvmArgs = [
+            '--add-opens=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED'
+    ]
+}
+
+
+// Настроим тестовую задачу, чтобы она использовала JUnit Platform
+test {
+    useJUnitPlatform()
+}
