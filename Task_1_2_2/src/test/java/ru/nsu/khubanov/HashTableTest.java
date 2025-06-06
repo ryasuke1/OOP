@@ -65,6 +65,7 @@ class HashTableTest {
         hashTable.put("key2", 200);
         anotherTable.put("key2", 200);
         assertTrue(hashTable.equals(anotherTable));
+
     }
 
     @Test

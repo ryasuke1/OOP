@@ -112,6 +112,15 @@ class AdjacencyListGraph implements Graph {
 
     @Override
     public boolean equals(Object obj) {
+        if(this==obj){
+            return true;
+        }
+        if(obj==null){
+            return false;
+        }
+        if(!(obj instanceof AdjacencyListGraph)){
+            return false;
+        }
         AdjacencyListGraph other = (AdjacencyListGraph) obj;
         return adjList.equals(other.adjList); // Сравниваем списки смежности
     }

@@ -152,6 +152,15 @@ public class AdjacencyMatrixGraph implements Graph {
     }
     @Override
     public boolean equals(Object obj) {
+        if(this==obj){
+            return true;
+        }
+        if(obj==null){
+            return false;
+        }
+        if(!(obj instanceof AdjacencyMatrixGraph)){
+            return false;
+        }
         AdjacencyMatrixGraph other = (AdjacencyMatrixGraph) obj;
         return vertices.equals(other.vertices) && Arrays.deepEquals(adjMatrix, other.adjMatrix);
     }
