@@ -20,8 +20,8 @@ public class Manager {
     private final AbstractQueue<Order> orderQueue;
     private final AbstractQueue<Order> storage;
     private final OrderSource orderSource;
-    private final List<Baker> bakers = new ArrayList<>();
-    private final List<Courier> couriers = new ArrayList<>();
+    private final List<Thread> bakers = new ArrayList<>();
+    private final List<Thread> couriers = new ArrayList<>();
 
     private volatile boolean isAcceptingOrders = true;
     private volatile boolean isRunning = true;
