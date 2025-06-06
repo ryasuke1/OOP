@@ -1,0 +1,6 @@
+{
+  "numBakers": 3,
+  "numCouriers": 2,
+  "storageCapacity": 5,
+  "simulationTime": 15000
+}

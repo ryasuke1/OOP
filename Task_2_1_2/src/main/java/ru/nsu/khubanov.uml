@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/home/ochir/Рабочий стол/OOPspace/Task_2_1_2/src/main/java/ru/nsu/khubanov</OriginalElement>
+  <nodes>
+    <node x="-6.5" y="-14.0">ru.nsu.khubanov.Courier</node>
+    <node x="-92.0" y="46.0">ru.nsu.khubanov.Manager</node>
+    <node x="43.0" y="346.0">ru.nsu.khubanov.Main</node>
+    <node x="-97.5" y="406.0">ru.nsu.khubanov.OrderGenerator</node>
+    <node x="35.5" y="666.0">ru.nsu.khubanov.OrderQueue</node>
+    <node x="-91.0" y="546.0">ru.nsu.khubanov.AbstractQueue</node>
+    <node x="40.0" y="126.0">ru.nsu.khubanov.Baker</node>
+    <node x="80.5" y="486.0">ru.nsu.khubanov.Order</node>
+    <node x="-94.0" y="266.0">ru.nsu.khubanov.PizzeriaConfig</node>
+    <node x="-47.5" y="726.0">ru.nsu.khubanov.Storage</node>
+    <node x="-86.5" y="186.0">ru.nsu.khubanov.TimerThread</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ru.nsu.khubanov.OrderQueue" target="ru.nsu.khubanov.AbstractQueue" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="107.0" y="640.0" />
+      <point x="7.0" y="640.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="ru.nsu.khubanov.Storage" target="ru.nsu.khubanov.AbstractQueue" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.133248730964467" showDependencies="false" x="142.6394176931691" y="382.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
